@@ -2,18 +2,22 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./Card";
 const App = () => {
-  const [query, setQuery] = useState("peach");
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("")
+  const [typeSearch, setTypeSearch] = useState("")
   const [type, setType] = useState("");
 
   useEffect(() => {
     getAmiiboSearch();
-  }, [search]);
+  }, [search, typeSearch]);
 
   const getAmiiboSearch = async () => {
+    let typeURL, searchURL = "empty"
+    typeURL = type ? (search ? `&type=${type}`: `?type=${type}`): ``  
+    searchURL = search ? `?name=${search}`:``
     const response = await fetch(
-      `https://www.amiiboapi.com/api/amiibo/?name=${search}${type}`
+      `https://www.amiiboapi.com/api/amiibo/${searchURL}${typeURL}`
     );
     const data = await response.json();
     setResults(data.amiibo);
@@ -28,11 +32,12 @@ const App = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setSearch(query);
+    setTypeSearch(type);
   };
 
   const handleTypeChange = (e) => {
     const { value } = e.target;
-    value !== "" ? setType(`&type=${value}`) : setType("");
+    setType(value);
     console.log(`Type: ${type}`);
   };
 
