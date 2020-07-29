@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./Card";
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import ProgressProvider from "./ProgressProvider";
 
 const App = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [search, setSearch] = useState("")
-  const [typeSearch, setTypeSearch] = useState("")
+  const [AllAmiibo, setAllAmiibo] = useState(0);
+  const [isOrdered, setIsOrdered] = useState(false);
+  const [search, setSearch] = useState("");
+  const [typeSearch, setTypeSearch] = useState("");
   const [type, setType] = useState("");
 
   useEffect(() => {
@@ -16,21 +19,21 @@ const App = () => {
   }, [search, typeSearch]);
 
   const getAmiiboSearch = async () => {
-    let typeURL, searchURL = "empty"
-    typeURL = type ? (search ? `&type=${type}`: `?type=${type}`): ``  
-    searchURL = search ? `?name=${search}`:``
+    let typeURL,
+      searchURL = "empty";
+    typeURL = type ? (search ? `&type=${type}` : `?type=${type}`) : ``;
+    searchURL = search ? `?name=${search}` : ``;
     const response = await fetch(
       `https://www.amiiboapi.com/api/amiibo/${searchURL}${typeURL}`
     );
     const data = await response.json();
     setResults(data.amiibo);
-
+    console.log(data.amiibo)
   };
 
   const handleChange = (e) => {
     const { value } = e.target;
     setQuery(value);
-
   };
   const handleSearch = (e) => {
     e.preventDefault();
@@ -41,53 +44,20 @@ const App = () => {
   const handleTypeChange = (e) => {
     const { value } = e.target;
     setType(value);
-
   };
 
   const reorder = (resultInput) => {
-
-
-    let resultOrig = resultInput
-    let temp = {}
-    let j = 0 
-  for(let i = 0; i<resultOrig.length; i++)
-  {
-    j = i
-    while(j>0 && newerThan(resultOrig[j].release.na, resultOrig[j-1].release.na))
-    {
-      
-      temp = resultOrig[j]
-      resultOrig[j] = resultOrig[j-1]
-      resultOrig[j-1] = temp
-      j = j-1;
-    }
-
-  
-  }
-  for(let i = 0; i<resultOrig.length; i++)
-  {
-    console.log(resultOrig[i].release.na)
-  }
-  return resultOrig;
-}
-
- const newerThan = (left, right) =>
- {
-   if(left && right)
-   {
-  const newLeft = parseInt(left.replace(/-/g, ''))
-  const newRight = parseInt(right.replace(/-/g, ''))
-
-  console.log(newLeft)
-  console.log(newRight)
-  const ret = newLeft > newRight ? true : false
-  return ret
-   }
-   else
-   {
-     return 0
-   }
-  }
+    let filteredInput = resultInput.filter((result) => {
+      return result.release.na;
+    });
+    filteredInput.sort((a, b) => {
+      return (
+        parseInt(b.release.na.replace(/-/g, "")) -
+        parseInt(a.release.na.replace(/-/g, ""))
+      );
+    });
+    return filteredInput;
+  };
 
   return (
     <div className="App">
@@ -107,21 +77,63 @@ const App = () => {
         </select>
         <button>Click to Search</button>
       </form>
+      <br />
 
- 
- <CircularProgressbar value={54} text={`${54}%`} />
-      {results &&
-        console.log(reorder(results))}
+      {!isOrdered ? (
+        <button
+          onClick={() => {
+            setIsOrdered(true);
+          }}
+        >
+          Order
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            setIsOrdered(false);
+          }}
+        >
+          Un-Order
+        </button>
+      )}
 
-       { results.map((result) => (
-          <Card
-            key = {result.image}
-            name={result.name}
-            series={result.gameSeries}
-            image={result.image}
-            release={result.release.na}
+<div className = "Spacer">
+      </div>
+  <div className = "Circular">
+      <ProgressProvider valueStart={0} valueEnd={66}>
+        {(value) => (
+          <CircularProgressbar
+            value={results? Math.ceil((results.length/749)*100) : 0}
+            text={`${results? results.length : 0}/749`}
           />
-        ))}
+        )}
+      </ProgressProvider>
+      </div>
+      {results ? (
+        isOrdered ? (
+          reorder(results).map((result) => (
+            <Card
+              key={result.image}
+              name={result.name}
+              series={result.gameSeries}
+              image={result.image}
+              release={result.release.na}
+            />
+          ))
+        ) : (
+          results.map((result) => (
+            <Card
+              key={result.image}
+              name={result.name}
+              series={result.gameSeries}
+              image={result.image}
+              release={result.release.na}
+            />
+          ))
+        )
+      ) : (
+        <p>No Results</p>
+      )}
     </div>
   );
 };

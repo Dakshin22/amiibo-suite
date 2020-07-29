@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.Circular{
+  width: 10%;
+  margin: 0 auto;
+}
+
+.Spacer{
+  margin: 5em;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
