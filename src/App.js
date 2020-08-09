@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Spacer from "./Spacer.js";
 import "./App.css";
 import Card from "./Card";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -8,11 +9,11 @@ import ProgressProvider from "./ProgressProvider";
 const App = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [AllAmiibo, setAllAmiibo] = useState(0);
   const [isOrdered, setIsOrdered] = useState(false);
   const [search, setSearch] = useState("");
   const [typeSearch, setTypeSearch] = useState("");
   const [type, setType] = useState("");
+  const [collection, setCollection] = useState([]);
 
   useEffect(() => {
     getAmiiboSearch();
@@ -28,7 +29,7 @@ const App = () => {
     );
     const data = await response.json();
     setResults(data.amiibo);
-    console.log(data.amiibo)
+    console.log(data.amiibo);
   };
 
   const handleChange = (e) => {
@@ -59,6 +60,58 @@ const App = () => {
     return filteredInput;
   };
 
+  const handleCollect = (object, checked) => {
+
+    if(checked)
+    {
+      console.log(`${object.name} needs to be added`)
+
+    }
+    if(!checked)
+    {
+      console.log(`${object.name} needs to be removed`)
+    }
+    if(checked)
+  {
+    //variable to determine whether a identical amiibo already exists in the got it list
+    //let check = false;
+   // for (let i = 0; i < collection.length; i++) {
+    //  if (collection[i] === name) {
+      //  check = true;
+     // }
+   // }
+    //if(!check)
+    console.log(`current object added to collection: ${object.image}`)
+      setCollection((prevCollection) => {
+        return [...prevCollection, object]
+        
+      });
+    
+    console.log(`collection = ${collection}`)
+  }
+  else
+  {
+    let deletePosition = -1
+    for (let i = 0; i < collection.length; i++) {
+        if (collection[i] === object) {
+          deletePosition = i;
+        }
+      }
+      handleDelete(deletePosition)
+  }
+  };
+
+  const handleDelete = (delPosition)=>
+  {
+    setCollection((prevCollection)=>
+    {
+      console.log(`this is the prevCollection: ${prevCollection}`)
+      prevCollection.splice(delPosition, 1)
+      return prevCollection
+    }, )
+  }
+  const newCollection = collection
+
   return (
     <div className="App">
       <form onSubmit={handleSearch}>
@@ -79,13 +132,26 @@ const App = () => {
       </form>
       <br />
 
+      
+      <Spacer />
+      <div className="Circular">
+        <ProgressProvider valueStart={0} valueEnd={66}>
+          {(value) => (
+            <CircularProgressbar
+              value={results ? Math.ceil((results.length / 749) * 100) : 0}
+              text={`${results ? results.length : 0}/749`}
+            />
+          )}
+        </ProgressProvider>
+      </div>
+      <div className = "collectionDiv">
       {!isOrdered ? (
         <button
           onClick={() => {
             setIsOrdered(true);
           }}
         >
-          Order
+          Order: Newest First
         </button>
       ) : (
         <button
@@ -96,18 +162,12 @@ const App = () => {
           Un-Order
         </button>
       )}
-
-<div className = "Spacer">
-      </div>
-  <div className = "Circular">
-      <ProgressProvider valueStart={0} valueEnd={66}>
-        {(value) => (
-          <CircularProgressbar
-            value={results? Math.ceil((results.length/749)*100) : 0}
-            text={`${results? results.length : 0}/749`}
-          />
-        )}
-      </ProgressProvider>
+      {console.log(collection)}
+      <ul>{
+      newCollection.map((item)=>{
+      return (<li key = {item.image}>{item.name}</li>)
+      })}
+      </ul>
       </div>
       {results ? (
         isOrdered ? (
@@ -118,6 +178,8 @@ const App = () => {
               series={result.gameSeries}
               image={result.image}
               release={result.release.na}
+              object = {result}
+              collectCallback={handleCollect}
             />
           ))
         ) : (
@@ -128,12 +190,15 @@ const App = () => {
               series={result.gameSeries}
               image={result.image}
               release={result.release.na}
+              object = {result}
+              collectCallback={handleCollect}
             />
           ))
         )
       ) : (
         <p>No Results</p>
       )}
+      
     </div>
   );
 };
