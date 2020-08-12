@@ -14,6 +14,7 @@ const App = () => {
   const [typeSearch, setTypeSearch] = useState("");
   const [type, setType] = useState("");
   const [collection, setCollection] = useState([]);
+  const [checked, setChecked] = useState([]);
 
   useEffect(() => {
     getAmiiboSearch();
@@ -89,7 +90,7 @@ const App = () => {
     
     console.log(`collection = ${collection}`)
   }
-  else
+  else if(!checked)
   {
     let deletePosition = -1
     for (let i = 0; i < collection.length; i++) {
