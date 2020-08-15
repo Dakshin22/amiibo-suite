@@ -14,7 +14,7 @@ Users can also see a circular progress bar in the app, which shows the user how 
 
 ## Features in Progress
 
-Currently, I'm working on a feature where users can check a checkbox next to a result to add it to their collection. This will allow collectors to keep track of what amiibo they own through the app.
+Currently, I'm working on a feature where users can check a checkbox next to a result to add it to their "collection". This will allow collectors to keep track of what amiibo they own through the app.
 
 # Challenges
 
