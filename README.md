@@ -4,6 +4,8 @@ This app, called the Amiibo Collector Suite, is a tool for searching, filtering,
 
 # Features
 
+Note: This app is still a work in progress. It will be more polished and will have additional features in the future.
+
 ## Current Features
 
 The amiibo are filterable by name and type (of which there are 3: figure, card, and yarn). Users can type the name of the amiibo they want to search for and filter the results by type using a dropdown. The results show in inidvidual components, called `Cards` (`Card.js`), that show the name, image and release date of the amiibo. 
