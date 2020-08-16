@@ -16,10 +16,22 @@ const App = () => {
   const [collection, setCollection] = useState([]);
   const [checked, setChecked] = useState([]);
 
+
+  //API gets called when search is clicked and the type of amiibo filter is changed
   useEffect(() => {
     getAmiiboSearch();
   }, [search, typeSearch]);
 
+
+  //TODO: update checked array
+  useEffect(() => {updateChecked();},[collection])
+  
+  const updateChecked = () => {
+    
+  }
+  
+  
+  //API Call
   const getAmiiboSearch = async () => {
     let typeURL,
       searchURL = "empty";
@@ -61,6 +73,8 @@ const App = () => {
     return filteredInput;
   };
 
+
+  //this code runs when the user checks the button on a `Card`
   const handleCollect = (object, checked) => {
 
     if(checked)
@@ -86,7 +100,7 @@ const App = () => {
       setCollection((prevCollection) => {
         return [...prevCollection, object]
         
-      });
+      }, setChecked((prevCheckedArray)=>{prevCheckedArray.push({object: true})}));
     
     console.log(`collection = ${collection}`)
   }
@@ -99,6 +113,14 @@ const App = () => {
         }
       }
       handleDelete(deletePosition)
+    for(let i = 0; i< checked.length; i++) {
+      if(checked[i] === {object: true}) {
+        setChecked((prevCheckedArray)=>{
+          prevCheckedArray.splice(i,1)
+          return prevCheckedArray
+        })
+      }
+    }
   }
   };
 
@@ -180,6 +202,7 @@ const App = () => {
               image={result.image}
               release={result.release.na}
               object = {result}
+              
               collectCallback={handleCollect}
             />
           ))
