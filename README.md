@@ -12,7 +12,7 @@ The amiibo are filterable by name and type (of which there are 3: figure, card, 
 
 In addition, users can order the results by release date to see the newest released amiibo towards the top of the page.
 
-Users can also see a circular progress bar in the app, which shows the user how much of the total number of amiibo are part of the current results on the page. In the future, the use of this progress bar may change to something more useful to the user.
+Users can also see a circular progress bar in the app, which shows the user how much amiibo (out of the total number of amiibo) that they have collected 
 
 ## Features in Progress
 
