@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from "react";
 import Spacer from "./Spacer.js";
 import "./App.css";
+import "./Collection"
 import Card from "./Card";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ProgressProvider from "./ProgressProvider";
+import Collection from "./Collection";
 
 const App = () => {
+  //changes when user types input into search bar.
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [isOrdered, setIsOrdered] = useState(false);
+  //changes only when the user presses the search button and contains the search text
   const [search, setSearch] = useState("");
+  //array of results, which are objects
+  const [results, setResults] = useState([]);
+  /*
+   *boolean value which determines whether the reuslts show in release order or by order
+   *of the api
+   */
+  const [isOrdered, setIsOrdered] = useState(false);
+
+  //changes when a user selects a filter type in the dropdown and then clicks search.
   const [typeSearch, setTypeSearch] = useState("");
+  //changes when user selects filter type in the dropdown
   const [type, setType] = useState("");
+  //array of the user's collection
   const [collection, setCollection] = useState([]);
-  const [checked, setChecked] = useState([]);
 
   useEffect(() => {
     getAmiiboSearch();
@@ -30,24 +42,27 @@ const App = () => {
     );
     const data = await response.json();
     setResults(data.amiibo);
-    console.log(data.amiibo);
   };
-
+  //sets the query value in state (changes on every keystroke)
   const handleChange = (e) => {
     const { value } = e.target;
     setQuery(value);
   };
+
+  //sets the search value in state (changes when user clicks search button)
   const handleSearch = (e) => {
     e.preventDefault();
     setSearch(query);
     setTypeSearch(type);
   };
 
+  //sets type value in state
   const handleTypeChange = (e) => {
     const { value } = e.target;
     setType(value);
   };
 
+  //reorders results
   const reorder = (resultInput) => {
     let filteredInput = resultInput.filter((result) => {
       return result.release.na;
@@ -61,57 +76,22 @@ const App = () => {
     return filteredInput;
   };
 
+  //adds or removes a result that has been checked to the collection array in state
   const handleCollect = (object, checked) => {
-
-    if(checked)
-    {
-      console.log(`${object.name} needs to be added`)
-
-    }
-    if(!checked)
-    {
-      console.log(`${object.name} needs to be removed`)
-    }
-    if(checked)
-  {
-    //variable to determine whether a identical amiibo already exists in the got it list
-    //let check = false;
-   // for (let i = 0; i < collection.length; i++) {
-    //  if (collection[i] === name) {
-      //  check = true;
-     // }
-   // }
-    //if(!check)
-    console.log(`current object added to collection: ${object.image}`)
+    if (checked) {
       setCollection((prevCollection) => {
-        return [...prevCollection, object]
-        
+        return [...prevCollection, object];
       });
-    
-    console.log(`collection = ${collection}`)
-  }
-  else if(!checked)
-  {
-    let deletePosition = -1
-    for (let i = 0; i < collection.length; i++) {
-        if (collection[i] === object) {
-          deletePosition = i;
-        }
-      }
-      handleDelete(deletePosition)
-  }
+    }
+    //removes item from collection state array
+    else if (!checked) {
+      setCollection((prevCollection) => {
+        return prevCollection.filter((collectionItem) => {
+          return collectionItem !== object;
+        });
+      });
+    }
   };
-
-  const handleDelete = (delPosition)=>
-  {
-    setCollection((prevCollection)=>
-    {
-      console.log(`this is the prevCollection: ${prevCollection}`)
-      prevCollection.splice(delPosition, 1)
-      return prevCollection
-    }, )
-  }
-  const newCollection = collection
 
   return (
     <div className="App">
@@ -133,65 +113,65 @@ const App = () => {
       </form>
       <br />
 
-      
       <Spacer />
       <div className="Circular">
         <ProgressProvider valueStart={0} valueEnd={66}>
           {(value) => (
             <CircularProgressbar
-              value={results ? Math.ceil((results.length / 749) * 100) : 0}
-              text={`${results ? results.length : 0}/749`}
+              value={collection ? Math.ceil((collection.length / 749) * 100) : 0}
+              text={`${collection ? collection.length : 0}/749`}
             />
           )}
         </ProgressProvider>
       </div>
-      <div className = "collectionDiv">
-      {!isOrdered ? (
-        <button
-          onClick={() => {
-            setIsOrdered(true);
-          }}
-        >
-          Order: Newest First
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            setIsOrdered(false);
-          }}
-        >
-          Un-Order
-        </button>
-      )}
-      {console.log(collection)}
-      <ul>{
-      newCollection.map((item)=>{
-      return (<li key = {item.image}>{item.name}</li>)
-      })}
-      </ul>
+      <Spacer/>
+      
+        {!isOrdered ? (
+          <button
+            onClick={() => {
+              setIsOrdered(true);
+            }}
+          >
+            Order: Newest First
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setIsOrdered(false);
+            }}
+          >
+            Un-Order
+          </button>
+        )}
+        <Spacer/>
+        <div className="collectionDiv">
+        <Collection collectionArr = {collection}/>
       </div>
+      <div className = "Results">
       {results ? (
         isOrdered ? (
           reorder(results).map((result) => (
             <Card
+              alreadyCollected = {collection}
               key={result.image}
               name={result.name}
               series={result.gameSeries}
               image={result.image}
               release={result.release.na}
-              object = {result}
+              object={result}
               collectCallback={handleCollect}
             />
           ))
         ) : (
           results.map((result) => (
             <Card
+              alreadyCollected = {collection}
               key={result.image}
               name={result.name}
               series={result.gameSeries}
               image={result.image}
               release={result.release.na}
-              object = {result}
+              object={result}
               collectCallback={handleCollect}
             />
           ))
@@ -199,7 +179,7 @@ const App = () => {
       ) : (
         <p>No Results</p>
       )}
-      
+      </div>
     </div>
   );
 };

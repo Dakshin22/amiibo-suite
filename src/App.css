@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  scroll-behavior: smooth;
 }
 
 .Circular{
@@ -7,11 +8,34 @@
   margin: 0 auto;
 }
 
+.Header{
+  text-align: center;
+}
 .Spacer{
   margin: 2em;
 }
 
 .collectionDiv{
-  display: flex;
+
   margin: 0 auto;
+  padding: 2em;
+  border: black 0.5em solid;
 }
+
+.Results{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+  .CollectionList 
+  { 
+ list-style-type: upper-roman;
+  list-style-image: url(' ');
+  list-style-position: inside;
+  } 
+ .CollectionList li
+ { 
+ padding: 13px; 
+  margin: 0px; 
+  }  
