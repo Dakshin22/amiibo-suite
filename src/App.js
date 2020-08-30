@@ -118,13 +118,14 @@ const App = () => {
         <ProgressProvider valueStart={0} valueEnd={66}>
           {(value) => (
             <CircularProgressbar
-              value={results ? Math.ceil((results.length / 749) * 100) : 0}
-              text={`${results ? results.length : 0}/749`}
+              value={collection ? Math.ceil((collection.length / 749) * 100) : 0}
+              text={`${collection ? collection.length : 0}/749`}
             />
           )}
         </ProgressProvider>
       </div>
-      <div className="collectionDiv">
+      <Spacer/>
+      
         {!isOrdered ? (
           <button
             onClick={() => {
@@ -142,12 +143,16 @@ const App = () => {
             Un-Order
           </button>
         )}
+        <Spacer/>
+        <div className="collectionDiv">
         <Collection collectionArr = {collection}/>
       </div>
+      <div className = "Results">
       {results ? (
         isOrdered ? (
           reorder(results).map((result) => (
             <Card
+              alreadyCollected = {collection}
               key={result.image}
               name={result.name}
               series={result.gameSeries}
@@ -160,6 +165,7 @@ const App = () => {
         ) : (
           results.map((result) => (
             <Card
+              alreadyCollected = {collection}
               key={result.image}
               name={result.name}
               series={result.gameSeries}
@@ -173,6 +179,7 @@ const App = () => {
       ) : (
         <p>No Results</p>
       )}
+      </div>
     </div>
   );
 };
