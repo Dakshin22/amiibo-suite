@@ -7,14 +7,25 @@ import "react-circular-progressbar/dist/styles.css";
 import ProgressProvider from "./ProgressProvider";
 
 const App = () => {
+  
+  //changes when user types input into search bar.
   const [query, setQuery] = useState("");
+  //array of results, which are objects
   const [results, setResults] = useState([]);
+  /*
+  *boolean value which determines whether the reuslts show in release order or by order
+  *of the api
+  */
   const [isOrdered, setIsOrdered] = useState(false);
+  //changes when the user presses the search button and contains the search text
   const [search, setSearch] = useState("");
+  //changes when a user selects a filter type in the dropdown and then clicks search.
   const [typeSearch, setTypeSearch] = useState("");
+  //changes when user selects filter type in the dropdown
   const [type, setType] = useState("");
+  //array of the user's collection
   const [collection, setCollection] = useState([]);
-  const [checked, setChecked] = useState([]);
+
 
   useEffect(() => {
     getAmiiboSearch();
