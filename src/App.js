@@ -7,9 +7,11 @@ import "react-circular-progressbar/dist/styles.css";
 import ProgressProvider from "./ProgressProvider";
 
 const App = () => {
-  
+
   //changes when user types input into search bar.
   const [query, setQuery] = useState("");
+  //changes only when the user presses the search button and contains the search text
+  const [search, setSearch] = useState("");
   //array of results, which are objects
   const [results, setResults] = useState([]);
   /*
@@ -17,8 +19,7 @@ const App = () => {
   *of the api
   */
   const [isOrdered, setIsOrdered] = useState(false);
-  //changes when the user presses the search button and contains the search text
-  const [search, setSearch] = useState("");
+  
   //changes when a user selects a filter type in the dropdown and then clicks search.
   const [typeSearch, setTypeSearch] = useState("");
   //changes when user selects filter type in the dropdown
@@ -43,22 +44,26 @@ const App = () => {
     setResults(data.amiibo);
     console.log(data.amiibo);
   };
-
+  //sets the query value in state (changes on every keystroke)
   const handleChange = (e) => {
     const { value } = e.target;
     setQuery(value);
   };
+
+  //sets the search value in state (changes when user clicks search button)
   const handleSearch = (e) => {
     e.preventDefault();
     setSearch(query);
     setTypeSearch(type);
   };
 
+  //sets type value in state
   const handleTypeChange = (e) => {
     const { value } = e.target;
     setType(value);
   };
 
+  //reorders results
   const reorder = (resultInput) => {
     let filteredInput = resultInput.filter((result) => {
       return result.release.na;
@@ -72,6 +77,7 @@ const App = () => {
     return filteredInput;
   };
 
+  //adds a result that has been checked to the collection array in state
   const handleCollect = (object, checked) => {
 
     if(checked)
@@ -113,6 +119,7 @@ const App = () => {
   }
   };
 
+  // deletes a result that has been unchecked from the collection array in state
   const handleDelete = (delPosition)=>
   {
     setCollection((prevCollection)=>
