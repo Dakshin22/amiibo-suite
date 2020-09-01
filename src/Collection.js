@@ -10,7 +10,7 @@ const Collection = (props) =>
         </h1>
         <ul className = "CollectionList">
           {props.collectionArr.map((item) => {
-            return <li key={item.image}>{item.name}</li>;
+            return <li key={item.image}>{item.name} - {item.amiiboSeries}</li>;
           })}
         </ul>
         </div>

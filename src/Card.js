@@ -3,25 +3,48 @@ import "./App.css";
 import style from "./Card.module.css";
 
 const Card = (props) => {
+  
+ 
+
+  const returnInitial = () => {
+    let z = false;
+    for(let i = 0; i<props.alreadyCollected.length; i++)
+    {
+      if(props.alreadyCollected[i].image === props.image)
+        {
+          z = true;
+        }
+    }
+    const ret = props.alreadyCollected.filter((item, index, arr) => {
+      //console.log(props.alreadyCollected)
+       //console.log(`${item.name} - ${item.amiiboSeries}: ${item.image === props.image}`)
+       return item.image === props.image;
+     }) === [];
+
+     return z;
+
+  } 
+  
   const [collected, setCollected] = useState(
-    props.alreadyCollected.filter((item) => {
-      console.log(item.image);
-      return item.image === props.image;
-    }) !== []
+     returnInitial()
   );
 
   const handleCheck = (e) => {
+    // const x = props.alreadyCollected.filter((item, index, arr) => {
+    //   console.log(arr);
+    //   return item.image === props.image;
+    // }) !== [];
+    //console.log(x);
     setCollected(e.target.checked);
     props.collectCallback(props.object, e.target.checked);
-    console.log(`this is from card.js ${props.object}`);
+    //console.log(`this is from card.js ${props.object}`);
   };
   return (
     <div className={style.Card}>
-      <input type="checkbox" value={collected} onChange={handleCheck} />
-      <h1>{props.name}</h1>
-      <img className={style.image} src={props.image} alt="amiibo" width="130" height="200"/>
-      <h3>from {props.series}</h3>
-      <p>released on {props.release}</p>
+      <input type="checkbox" checked={collected} onChange={handleCheck} />
+      <h1>{props.name} - {props.object.amiiboSeries}</h1>
+      <img className={style.image} src={props.image} alt="amiibo"/>
+      <p>Released on {props.release}</p>
     </div>
   );
 };
