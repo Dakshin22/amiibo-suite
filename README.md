@@ -18,6 +18,8 @@ Users can also see a circular progress bar in the app, which shows the user how 
 
 Currently, I'm working on a feature where users can check a checkbox next to a result to add it to their "collection". This will allow collectors to keep track of what amiibo they own through the app.
 
+I'm also working on styling and UI/UX changes.
+
 # Challenges
 
 In the app, one future feature is the ability for a user to add a figure to their "collection". This is done by checking a box next to the respective figure. One challenge I had was moving the checked state from the `Card.js` component to the app component to "lift state up" so future components could see which cards were checked and which weren't.
