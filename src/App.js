@@ -85,11 +85,14 @@ const App = () => {
     }
     //removes item from collection state array
     else if (!checked) {
+      console.log('here')
       setCollection((prevCollection) => {
         return prevCollection.filter((collectionItem) => {
-          return collectionItem !== object;
+          console.log(`bool:`, collectionItem!==object, collectionItem, object);
+          return collectionItem.image !== object.image;
         });
-      });
+      }, console.log(collection));
+      
     }
   };
 
