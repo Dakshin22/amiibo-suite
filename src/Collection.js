@@ -15,7 +15,7 @@ const Collection = (props) =>
           })}
         </ul>
         :
-        <p>There's nothing in your collection yet, click checkboxes on the results that you want to add to your collection.</p>}
+        <p>Check boxes to add to Collection...</p>}
         </div>
     )
 }
