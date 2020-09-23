@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   scroll-behavior: smooth;
+  margin: 2em;
 }
 
 .Circular{
@@ -20,6 +21,7 @@
   margin: 0 auto;
   padding: 2em;
   border: black 0.5em solid;
+  border-radius: 21px;
 }
 
 .Results{

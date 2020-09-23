@@ -87,9 +87,10 @@ const App = () => {
     else if (!checked) {
       setCollection((prevCollection) => {
         return prevCollection.filter((collectionItem) => {
-          return collectionItem !== object;
+          return collectionItem.image !== object.image;
         });
-      });
+      }, console.log(collection));
+      
     }
   };
 
@@ -99,16 +100,18 @@ const App = () => {
         <input
           type="text"
           onChange={handleChange}
-          placeholder="search for amiibo..."
+          placeholder="SEARCH..."
           value={query}
         />
-        <label>Select Type:</label>
+        <br></br>
+        <label>Select Type: </label>
         <select value={type} onChange={handleTypeChange} name="type">
           <option value="">All</option>
           <option value="figure">Figure</option>
           <option value="card">Card</option>
           <option value="yarn">Yarn</option>
         </select>
+        <br></br>
         <button>Click to Search</button>
       </form>
       <br />
