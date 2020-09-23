@@ -4,7 +4,7 @@ import Header from "./Header";
 import "./App.css";
 import "./Collection";
 import Card from "./Card";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ProgressProvider from "./ProgressProvider";
 import Collection from "./Collection";
@@ -91,104 +91,124 @@ const App = () => {
           return collectionItem.image !== object.image;
         });
       }, console.log(collection));
-      
     }
   };
 
   return (
     <div className="App">
-      
-      <Header/>
-      <Spacer/>
-      <div className = "Column-Layout">
-      <form onSubmit={handleSearch}>
-        <input
-          type="text" 
-          onChange={handleChange}
-          placeholder="SEARCH..."
-          value={query}
-        />
-        <br></br>
-        <label>Select Type: </label>
-        <select value={type} onChange={handleTypeChange} name="type">
-          <option value="">All</option>
-          <option value="figure">Figure</option>
-          <option value="card">Card</option>
-          <option value="yarn">Yarn</option>
-        </select>
-        <br></br>
-        <button>Click to Search</button>
-      </form>
-      <br />
-
+      <Header />
       <Spacer />
-      <div className="Circular">
-        <ProgressProvider valueStart={0} valueEnd={66}>
-          {(value) => (
-            <CircularProgressbar
-              value={collection ? Math.ceil((collection.length / 749) * 100) : 0}
-              text={`${collection ? collection.length : 0}/749`}
-            />
-          )}
-        </ProgressProvider>
-      
-      <Spacer/>
-      
+      <div className="Column-Layout">
+        <div>
+        <form onSubmit={handleSearch}>
+          <input
+            type="text"
+            onChange={handleChange}
+            placeholder="SEARCH..."
+            value={query}
+          />
+          <br></br>
+          <label>Select Type: </label>
+          <select value={type} onChange={handleTypeChange} name="type">
+            <option value="">All</option>
+            <option value="figure">Figure</option>
+            <option value="card">Card</option>
+            <option value="yarn">Yarn</option>
+          </select>
+          <br></br>
+          <button className = "Form-Button">Click to Search</button>
+        </form>
+        <br />
         {!isOrdered ? (
-          <button
-            onClick={() => {
-              setIsOrdered(true);
-            }}
-          >
-            Order: Newest First
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              setIsOrdered(false);
-            }}
-          >
-            Un-Order
-          </button>
-        )}
+            <button
+            className = "Form-Button"
+              onClick={() => {
+                setIsOrdered(true);
+              }}
+            >
+              Click to Order by Release
+            </button>
+          ) : (
+            <button
+            className = "Form-Button"
+              onClick={() => {
+                setIsOrdered(false);
+              }}
+            >
+              Un-Order
+            </button>
+          )}
+          </div>
+        <Spacer />
+        <div className="Circular">
+          <ProgressProvider valueStart={0} valueEnd={66}>
+            {(value) => (
+              <CircularProgressbar
+                value={
+                  collection ? Math.ceil((collection.length / 749) * 100) : 0
+                }
+                text={`${collection ? collection.length : 0}/749`}
+                styles={buildStyles({
+                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                  strokeLinecap: "butt",
+
+                  // Text size
+                  textSize: "1em",
+
+                  // How long animation takes to go from one percentage to another, in seconds
+                  pathTransitionDuration: 0.5,
+
+                  // Colors
+                  pathColor: `#000000`,
+                  textColor: "#000000",
+                  trailColor: "#d6d6d6",
+                  backgroundColor: "#3e98c7",
+                })}
+              />
+            )}
+          </ProgressProvider>
+
+
+
+          
         </div>
-        <Spacer/>
+        <Spacer />
         <div className="collectionDiv">
-        <Collection collectionArr = {collection}/>
+          <Collection collectionArr={collection} />
+        </div>
       </div>
-      </div>
-      <div className = "Results">
-      {results ? (
-        isOrdered ? (
-          reorder(results).map((result) => (
-            <Card
-              alreadyCollected = {collection}
-              key={result.image}
-              name={result.name}
-              series={result.gameSeries}
-              image={result.image}
-              release={result.release.na}
-              object={result}
-              collectCallback={handleCollect}
-            />
-          ))
+      <div className="Results">
+        {results ? (
+          isOrdered ? (
+            reorder(results).map((result) => (
+              <Card
+                alreadyCollected={collection}
+                key={result.image}
+                name={result.name}
+                series={result.gameSeries}
+                image={result.image}
+                release={result.release.na}
+                object={result}
+                collectCallback={handleCollect}
+              />
+            ))
+          ) : (
+            results.map((result) => (
+              <Card
+                alreadyCollected={collection}
+                key={result.image}
+                name={result.name}
+                series={result.gameSeries}
+                image={result.image}
+                release={result.release.na}
+                object={result}
+                collectCallback={handleCollect}
+              />
+            ))
+          )
         ) : (
-          results.map((result) => (
-            <Card
-              alreadyCollected = {collection}
-              key={result.image}
-              name={result.name}
-              series={result.gameSeries}
-              image={result.image}
-              release={result.release.na}
-              object={result}
-              collectCallback={handleCollect}
-            />
-          ))
-        )
-      ) : (
-        <p>No Results</p>
-      )}
+          <p>No Results</p>
+        )}
       </div>
     </div>
   );
