@@ -14,11 +14,11 @@ In addition, users can order the results by release date to see the newest relea
 
 Users can also see a circular progress bar in the app, which shows the user how much amiibo (out of the total number of amiibo) that they have collected 
 
+The app now allows users to add items to their "collection", which provides functionality to keep track of which items they have collected. You can check/uncheck items to add/remove them to your collection.
+
 ## Features in Progress
 
-Currently, I'm working on a feature where users can check a checkbox next to a result to add it to their "collection". This will allow collectors to keep track of what amiibo they own through the app.
-
-I'm also working on styling and UI/UX changes.
+The main focus currently is design changes.
 
 # Challenges
 
