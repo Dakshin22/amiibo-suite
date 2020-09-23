@@ -97,7 +97,10 @@ const App = () => {
 
   return (
     <div className="App">
+      
       <Header/>
+      <Spacer/>
+      <div className = "Column-Layout">
       <form onSubmit={handleSearch}>
         <input
           type="text" 
@@ -128,7 +131,7 @@ const App = () => {
             />
           )}
         </ProgressProvider>
-      </div>
+      
       <Spacer/>
       
         {!isOrdered ? (
@@ -148,9 +151,11 @@ const App = () => {
             Un-Order
           </button>
         )}
+        </div>
         <Spacer/>
         <div className="collectionDiv">
         <Collection collectionArr = {collection}/>
+      </div>
       </div>
       <div className = "Results">
       {results ? (
