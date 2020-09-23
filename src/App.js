@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Spacer from "./Spacer.js";
+import Header from "./Header";
 import "./App.css";
-import "./Collection"
+import "./Collection";
 import Card from "./Card";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -96,9 +97,10 @@ const App = () => {
 
   return (
     <div className="App">
+      <Header/>
       <form onSubmit={handleSearch}>
         <input
-          type="text"
+          type="text" 
           onChange={handleChange}
           placeholder="SEARCH..."
           value={query}

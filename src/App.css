@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   scroll-behavior: smooth;
-  margin: 2em;
+  margin: 0em 0em;
 }
 
 .Circular{
@@ -14,6 +14,22 @@
 }
 .Spacer{
   margin: 2em;
+}
+.Backdrop{
+  background: #000000;
+}
+.Main-Header{
+
+  font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+    margin: 0;
+    
 }
 
 .collectionDiv{
