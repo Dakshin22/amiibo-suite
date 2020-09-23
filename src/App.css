@@ -37,7 +37,8 @@
   margin: 0 auto;
   padding: 2em;
   border: black 0.5em solid;
-  border-radius: 21px;
+  border-radius: .5em;
+  width: 15 em;
 }
 
 .Results{
@@ -48,8 +49,7 @@
 
   .CollectionList 
   { 
- list-style-type: upper-roman;
-  list-style-image: url(' ');
+
   list-style-position: inside;
   } 
  .CollectionList li
@@ -75,5 +75,6 @@
 .Column-Layout{
   display: flex;
   justify-content: space-between;
-  margin: 2em;
+  margin: 2.5em;
+  flex: 1;
 }
