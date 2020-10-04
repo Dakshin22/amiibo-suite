@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   scroll-behavior: smooth;
-  margin: 2em;
+  margin: 0em 0em;
 }
 
 .Circular{
@@ -15,13 +15,30 @@
 .Spacer{
   margin: 2em;
 }
+.Backdrop{
+  background: #000000;
+}
+.Main-Header{
+
+  font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+    margin: 0;
+    
+}
 
 .collectionDiv{
 
   margin: 0 auto;
   padding: 2em;
   border: black 0.5em solid;
-  border-radius: 21px;
+  border-radius: .5em;
+  width: 15 em;
 }
 
 .Results{
@@ -32,8 +49,7 @@
 
   .CollectionList 
   { 
- list-style-type: upper-roman;
-  list-style-image: url(' ');
+
   list-style-position: inside;
   } 
  .CollectionList li
@@ -41,3 +57,47 @@
  padding: 13px; 
   margin: 0px; 
   }  
+
+  .Card-Header{
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 1em;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: normal;
+    text-transform: none;
+    margin: 0;
+}
+.Card-Text{
+    color: white;
+}
+
+.Column-Layout{
+  display: flex;
+  justify-content: space-between;
+  margin: 2.5em;
+  flex: 1;
+}
+
+.Form-Button{
+
+    box-shadow:inset 0px 34px 0px -15px #000000;
+    background-color:#000000;
+    border:1px solid #575655;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-variant: small-caps;
+    font-size:15px;
+    font-weight:bold;
+    text-decoration:none;
+    text-shadow:0px -1px 0px #dba7db;
+    margin: 1em;
+
+  
+} 
+  .Form-Button:active {
+    position:relative;
+    top:1px;
+  }
