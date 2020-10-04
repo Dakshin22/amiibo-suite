@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/amiibo-suite/static/css/main.73d99716.chunk.css",
+    "main.js": "/amiibo-suite/static/js/main.7dbc6b7b.chunk.js",
+    "main.js.map": "/amiibo-suite/static/js/main.7dbc6b7b.chunk.js.map",
+    "runtime-main.js": "/amiibo-suite/static/js/runtime-main.1a5f4ef6.js",
+    "runtime-main.js.map": "/amiibo-suite/static/js/runtime-main.1a5f4ef6.js.map",
+    "static/css/2.f524894f.chunk.css": "/amiibo-suite/static/css/2.f524894f.chunk.css",
+    "static/js/2.c2a60ae6.chunk.js": "/amiibo-suite/static/js/2.c2a60ae6.chunk.js",
+    "static/js/2.c2a60ae6.chunk.js.map": "/amiibo-suite/static/js/2.c2a60ae6.chunk.js.map",
+    "index.html": "/amiibo-suite/index.html",
+    "precache-manifest.9058903b10a38ca6dba533f56aef9046.js": "/amiibo-suite/precache-manifest.9058903b10a38ca6dba533f56aef9046.js",
+    "service-worker.js": "/amiibo-suite/service-worker.js",
+    "static/css/2.f524894f.chunk.css.map": "/amiibo-suite/static/css/2.f524894f.chunk.css.map",
+    "static/css/main.73d99716.chunk.css.map": "/amiibo-suite/static/css/main.73d99716.chunk.css.map",
+    "static/js/2.c2a60ae6.chunk.js.LICENSE.txt": "/amiibo-suite/static/js/2.c2a60ae6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1a5f4ef6.js",
+    "static/css/2.f524894f.chunk.css",
+    "static/js/2.c2a60ae6.chunk.js",
+    "static/css/main.73d99716.chunk.css",
+    "static/js/main.7dbc6b7b.chunk.js"
+  ]
+}
