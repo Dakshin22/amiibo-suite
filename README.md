@@ -2,6 +2,8 @@
 
 This app, called the Amiibo Collector Suite, is a tool for searching, filtering, and collecting well known character figures. This JavaScript project is built on React and calls the Amiibo REST API, located at https://github.com/N3evin/AmiiboAPI.
 
+The link to see the project is here (not mobile optimized yet): https://dakshin22.github.io/amiibo-suite/
+
 # Features
 
 Note: This app is still a work in progress. It will be more polished and will have additional features in the future.
@@ -18,7 +20,7 @@ The app now allows users to add items to their "collection", which provides func
 
 ## Features in Progress
 
-The main focus currently is design changes.
+The main focus currently is mobile optimization.
 
 # Challenges
 
